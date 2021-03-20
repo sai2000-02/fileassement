@@ -1,0 +1,61 @@
+#open input file to read input
+in_file =open("sample_input.txt","r")
+#open output file to write output
+out_file = open("output.txt","w+")
+goodies={}
+out_list=[]
+#reading input file 
+for f in in_file:
+    price=f.index(":")
+    print(f[price+1:].strip())
+    print(f[:price])
+    goodies[f[:price]]=f[price+1:].strip()
+print(goodies) 
+prices=list(goodies.values())
+
+
+prices=[int(i)for i in prices]
+#sorted list in decsending order to get prices to be distributed in order
+prices.sort(reverse=True)
+print(prices)
+#taking inputs
+num_of_employees=int(input("Enter number of employees: "))
+leng_considered=(len(prices)-num_of_employees)
+
+
+#finding minimum difference between highest and lowest
+for i in range(leng_considered):
+    max_price=prices[i]
+    min_price=prices[num_of_employees+i]
+    if i == 0:
+        difference=max_price-min_price
+        choosen=i
+    elif (max_price-min_price)<difference:
+        difference=max_price-min_price
+        choosen=i
+
+choosen_prices=prices[choosen:num_of_employees+choosen]
+#differnce between high and low price
+difference=max(choosen_prices)-min(choosen_prices)
+print("difference",difference)
+
+c=0
+for key,value in goodies.items():
+    prices[c]
+    if int(value)in choosen_prices and c<num_of_employees:
+        str1=key+": "+value
+        out_list.append(str1)
+        c+=1
+        print(str1)
+#writing to output file
+out_file.write("The goodies selected for distribution: ")
+
+out_file.write("\n")
+
+for i in out_list:
+    out_file.write(i)
+    out_file.write("\n")
+out_file.write("And the difference between the chosen goodie with highest price and the lowest price is "+str(difference))
+
+in_file.close()
+out_file.close()
